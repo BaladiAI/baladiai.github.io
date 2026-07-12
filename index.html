@@ -11,6 +11,12 @@
       --desert-sand: #F4EFEA;
       --gulf-aqua: #00B4D8;
       --infrastructure-charcoal: #252422;
+      --innovation-purple: #6F42C1;
+      --alert-coral: #EF233C;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -20,6 +26,7 @@
       background: var(--desert-sand);
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     .container {
@@ -28,78 +35,210 @@
       padding: 20px;
     }
 
+    /* Animated Header */
     header {
-      background: linear-gradient(135deg, var(--emirates-blue) 0%, var(--gulf-aqua) 100%);
+      background: linear-gradient(-45deg, var(--emirates-blue), var(--gulf-aqua), var(--innovation-purple), var(--emirates-blue));
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: white;
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 30s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     header h1 {
       margin: 0;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     header p {
-      font-size: 1.2rem;
-      margin-top: 10px;
+      font-size: 1.3rem;
+      margin-top: 15px;
       opacity: 0.95;
+      position: relative;
+      z-index: 1;
     }
 
     .tagline {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
       color: var(--falcon-gold);
-      margin-top: 15px;
+      margin-top: 20px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 1;
     }
 
-    section {
-      background: white;
-      margin: 30px 0;
-      padding: 30px;
+    /* Ideation Notice with Pulse */
+    .ideation-notice {
+      font-size: 0.95rem;
+      margin-top: 20px;
+      opacity: 0.95;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(255,255,255,0.15);
+      padding: 12px 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+      display: inline-block;
     }
 
-    h2 {
-      color: var(--emirates-blue);
-      border-bottom: 3px solid var(--falcon-gold);
-      padding-bottom: 8px;
-      margin-top: 0;
+    .status-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--falcon-gold);
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulse 2s infinite;
     }
 
-    ul {
-      padding-left: 20px;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
     }
 
+    /* CTA Button with Glow */
     .cta-button {
       display: inline-block;
-      background: var(--emirates-blue);
+      background: var(--falcon-gold);
       color: white;
-      padding: 12px 24px;
+      padding: 14px 28px;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 50px;
       font-weight: bold;
-      margin-top: 15px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 15px rgba(198,168,124,0.4);
+      transition: all 0.3s ease;
     }
 
     .cta-button:hover {
       background: var(--gulf-aqua);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,180,216,0.5);
     }
 
+    /* Sections with Fade-In */
+    section {
+      background: white;
+      margin: 40px 0;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    section:nth-child(2) { animation-delay: 0.3s; }
+    section:nth-child(3) { animation-delay: 0.4s; }
+    section:nth-child(4) { animation-delay: 0.5s; }
+    section:nth-child(5) { animation-delay: 0.6s; }
+    section:nth-child(6) { animation-delay: 0.7s; }
+
+    h2 {
+      color: var(--emirates-blue);
+      border-bottom: 3px solid var(--falcon-gold);
+      padding-bottom: 10px;
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    ul, ol {
+      padding-left: 25px;
+    }
+
+    li {
+      margin: 10px 0;
+      font-size: 1.05rem;
+    }
+
+    /* Feature Cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, var(--desert-sand) 0%, #fff 100%);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid var(--gulf-aqua);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       color: #666;
       font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--infrastructure-charcoal) 0%, #333 100%);
+      color: white;
     }
 
     @media (max-width: 600px) {
       header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
       .tagline {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+      }
+      .cta-button {
+        padding: 12px 24px;
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -111,13 +250,15 @@
       <p class="tagline">“See it. Report it. Fixed—by tomorrow.”</p>
       <p>AI‑native civic engagement & infrastructure maintenance platform for Abu Dhabi</p>
       
-      <!-- Ideation Phase Notice -->
-      <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.95; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <!-- Ideation Phase Notice with Animation -->
+      <div class="ideation-notice">
+        <span class="status-dot"></span>
         <strong>Note:</strong> This website is currently in the <strong>ideation phase</strong>. 
         Upon approval by <strong>Hub71+</strong> and the <strong>Abu Dhabi Government</strong>, 
         a full‑fledged advanced website, mobile (Android & iOS), and web application will be launched.
-      </p>
+      </div>
       
+      <br>
       <a href="#contact" class="cta-button">Get in Touch</a>
     </div>
   </header>
@@ -137,14 +278,35 @@
     <section id="solution">
       <h2>🤖 The Solution: Baladi AI</h2>
       <p>Baladi AI is a next‑generation, AI‑powered platform that enables anyone to report public infrastructure issues using a photo, video, voice note, or message — in any language — and have the AI automatically classify, enrich, and route the report to the exact responsible department for fast resolution.</p>
-      <p><strong>Key Features:</strong></p>
-      <ul>
-        <li>📸 One‑tap photo/video reporting with AI classification</li>
-        <li>🎤 Voice‑first multilingual chatbot (Arabic, English, Hindi, Urdu, etc.)</li>
-        <li>🧠 Agentic AI workflows per government department</li>
-        <li>🔮 Predictive maintenance & infrastructure health scores</li>
-        <li>🌐 Digital twin integration for real‑time urban insights</li>
-      </ul>
+      
+      <h3 style="color: var(--innovation-purple); margin-top: 25px;">Key Features</h3>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📸</div>
+          <strong>One‑Tap Reporting</strong>
+          <p>Photo/video with AI classification</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎤</div>
+          <strong>Voice‑First Chatbot</strong>
+          <p>Multilingual (Arabic, English, Hindi, Urdu, etc.)</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <strong>Agentic AI</strong>
+          <p>AI workflows per government department</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔮</div>
+          <strong>Predictive Maintenance</strong>
+          <p>Forecast failures & health scores</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <strong>Digital Twin</strong>
+          <p>Real‑time urban insights</p>
+        </div>
+      </div>
     </section>
 
     <section id="how-it-works">
@@ -179,8 +341,8 @@
     <section id="contact">
       <h2>📬 Contact</h2>
       <p>Interested in piloting Baladi AI in Abu Dhabi or learning more?</p>
-      <p><strong>Email:</strong> <a href="mailto:hasankhan.prof@gmail.com">hasankhan.prof@gmail.com</a></p>
-      <p><strong>Phone:</strong> +971 50 587 8677</p>
+      <p><strong>Email:</strong> <a href="mailto:hasankhan.prof@gmail.com" style="color: var(--emirates-blue); font-weight: bold;">hasankhan.prof@gmail.com</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+971505878677" style="color: var(--emirates-blue); font-weight: bold;">+971 50 587 8677</a></p>
       <p><strong>Location:</strong> Dubai, UAE</p>
     </section>
 
